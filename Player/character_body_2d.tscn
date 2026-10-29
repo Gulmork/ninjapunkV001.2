@@ -1,0 +1,498 @@
+[gd_scene format=3 uid="uid://btsyuj2su44i0"]
+
+[ext_resource type="Script" uid="uid://c82np5g1fljqm" path="res://player.gd" id="1_nfgwh"]
+[ext_resource type="Script" uid="uid://d3tkrstpckkdu" path="res://state_machine.gd" id="2_qtieq"]
+[ext_resource type="Texture2D" uid="uid://ctnhctht3tom2" path="res://Sprites/X/ZeroX6clean.png" id="2_rjd0h"]
+[ext_resource type="Script" uid="uid://csiys0fp3j7ns" path="res://Player/idle.gd" id="3_6eg3q"]
+[ext_resource type="Script" uid="uid://dlt71ederubo8" path="res://Player/walk.gd" id="4_fmfli"]
+[ext_resource type="Script" uid="uid://cm1p0e8igla7l" path="res://Player/jump.gd" id="5_amv1d"]
+[ext_resource type="Script" uid="uid://cs3ephnu14ymd" path="res://Player/dash.gd" id="7_6eg3q"]
+[ext_resource type="Script" uid="uid://dt0htgvelq825" path="res://Player/fall.gd" id="8_amv1d"]
+[ext_resource type="Script" uid="uid://immq154uw0xi" path="res://Player/custom_camera.gd" id="8_fmfli"]
+[ext_resource type="Script" uid="uid://d1ohl65drhbqp" path="res://Player/wallhang.gd" id="9_787ea"]
+[ext_resource type="Script" uid="uid://bhbg7k4qy77pm" path="res://Player/walljump.gd" id="10_c7av4"]
+[ext_resource type="Script" uid="uid://dw1xlwtunjwsx" path="res://Player/land.gd" id="11_btcwg"]
+[ext_resource type="Script" uid="uid://dvyjotetux3u1" path="res://Player/shadow_step.gd" id="12_ee7au"]
+[ext_resource type="Script" uid="uid://btw6gtmqubjb7" path="res://Player/crouch.gd" id="13_rjd0h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmfli"]
+size = Vector2(31, 46)
+
+[sub_resource type="Animation" id="Animation_6eg3q"]
+length = 0.26666668
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_fmfli"]
+resource_name = "attack_light1"
+length = 0.96666664
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1250413, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 220, 43, 47), Rect2(50, 220, 52, 47), Rect2(127, 220, 78, 47), Rect2(212, 220, 78, 47), Rect2(300, 220, 78, 47), Rect2(374, 220, 66, 47), Rect2(432, 220, 66, 47), Rect2(488, 220, 66, 47)]
+}
+
+[sub_resource type="Animation" id="Animation_mqj42"]
+resource_name = "crouch"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10542698),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(2, 1222, 42, 43), Rect2(50, 1222, 42, 43)]
+}
+
+[sub_resource type="Animation" id="Animation_amv1d"]
+resource_name = "dash"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(2, 643, 46, 50), Rect2(56, 643, 57, 50), Rect2(122, 643, 57, 50), Rect2(187, 643, 57, 50), Rect2(252, 643, 57, 50), Rect2(309, 643, 50, 50)]
+}
+
+[sub_resource type="Animation" id="Animation_787ea"]
+resource_name = "fall"
+length = 0.93333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.6666667, 0.8005095),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(801, 616, 47, 69), Rect2(846, 607, 47, 82), Rect2(848, 607, 47, 82), Rect2(897, 607, 47, 82), Rect2(946, 607, 47, 82), Rect2(995, 607, 47, 82)]
+}
+
+[sub_resource type="Animation" id="Animation_c7av4"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.4, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 100, 50, 49), Rect2(49, 100, 50, 49), Rect2(98, 100, 50, 49), Rect2(147, 100, 50, 49), Rect2(196, 100, 50, 49)]
+}
+
+[sub_resource type="Animation" id="Animation_btcwg"]
+resource_name = "jump"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10174929, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(507, 638, 42, 49), Rect2(559, 625, 43, 57), Rect2(608, 625, 43, 57), Rect2(656, 625, 43, 57), Rect2(702, 625, 44, 57), Rect2(702, 625, 44, 57), Rect2(752, 625, 47, 57)]
+}
+
+[sub_resource type="Animation" id="Animation_ee7au"]
+resource_name = "land"
+length = 0.13333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(1044, 626, 47, 59), Rect2(1097, 635, 45, 56)]
+}
+
+[sub_resource type="Animation" id="Animation_dsjr1"]
+resource_name = "shadowstep"
+length = 0.13333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(364, 640, 43, 46), Rect2(364, 640, 43, 46)]
+}
+
+[sub_resource type="Animation" id="Animation_fa7w4"]
+resource_name = "slide"
+length = 0.36666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13117078, 0.24272723),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(365, 637, 43, 50), Rect2(411, 637, 43, 50), Rect2(459, 637, 43, 50)]
+}
+
+[sub_resource type="Animation" id="Animation_rjd0h"]
+resource_name = "walk"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333333, 0.20000002, 0.26666668, 0.33333334, 0.4, 0.46666667, 0.5333333, 0.59999996, 0.6666666, 0.7333333, 0.79999995, 0.8666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(106, 162, 52, 45), Rect2(170, 160, 52, 48), Rect2(228, 160, 52, 48), Rect2(284, 160, 51, 47), Rect2(335, 160, 51, 48), Rect2(383, 160, 49, 48), Rect2(432, 160, 50, 48), Rect2(490, 160, 51, 48), Rect2(545, 160, 51, 48), Rect2(600, 160, 51, 48), Rect2(600, 160, 51, 48), Rect2(660, 160, 51, 48), Rect2(710, 160, 51, 48), Rect2(807, 160, 51, 48)]
+}
+
+[sub_resource type="Animation" id="Animation_jqiis"]
+resource_name = "wallhang"
+length = 0.13333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(1, 1054, 45, 58), Rect2(54, 1054, 45, 51), Rect2(100, 1054, 45, 57), Rect2(149, 1051, 45, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_8anfh"]
+resource_name = "walljump"
+length = 0.16666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(198, 1051, 45, 64), Rect2(248, 1051, 45, 64), Rect2(297, 1051, 45, 64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jqiis"]
+_data = {
+&"RESET": SubResource("Animation_6eg3q"),
+&"attack_light1": SubResource("Animation_fmfli"),
+&"crouch": SubResource("Animation_mqj42"),
+&"dash": SubResource("Animation_amv1d"),
+&"fall": SubResource("Animation_787ea"),
+&"idle": SubResource("Animation_c7av4"),
+&"jump": SubResource("Animation_btcwg"),
+&"land": SubResource("Animation_ee7au"),
+&"shadowstep": SubResource("Animation_dsjr1"),
+&"slide": SubResource("Animation_fa7w4"),
+&"walk": SubResource("Animation_rjd0h"),
+&"wallhang": SubResource("Animation_jqiis"),
+&"walljump": SubResource("Animation_8anfh")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8m58u"]
+animation = &"crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8anfh"]
+animation = &"dash"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_amv1d"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fa7w4"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dsjr1"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ee7au"]
+animation = &"land"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rjd0h"]
+animation = &"shadowstep"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h6qqb"]
+animation = &"slide"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mqj42"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c7av4"]
+animation = &"wall_hang"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_btcwg"]
+animation = &"wall_jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h6qqb"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8m58u"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oifbu"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yk37d"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_etguq"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ldsxk"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_awwbt"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7codg"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1mqe7"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qwwot"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uhmsy"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_787ea"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c7av4"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_btcwg"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ee7au"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rjd0h"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jqiis"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_amv1d"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8anfh"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fa7w4"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dsjr1"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mqj42"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b0xla"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_il0em"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xp1cg"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3pi0l"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r1mjt"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3vfb2"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_71gp0"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uuu1e"]
+switch_mode = 2
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_alc1t"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gjpyi"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tj635"]
+switch_mode = 2
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r462t"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4bwuy"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xjb3d"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vur2q"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0dkea"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_b0xla"]
+states/crouch/node = SubResource("AnimationNodeAnimation_8m58u")
+states/crouch/position = Vector2(398.85635, 270.84277)
+states/dash/node = SubResource("AnimationNodeAnimation_8anfh")
+states/dash/position = Vector2(848, 22)
+states/fall/node = SubResource("AnimationNodeAnimation_amv1d")
+states/fall/position = Vector2(689, 39)
+states/idle/node = SubResource("AnimationNodeAnimation_fa7w4")
+states/idle/position = Vector2(342, 194.53139)
+states/jump/node = SubResource("AnimationNodeAnimation_dsjr1")
+states/jump/position = Vector2(354, 11)
+states/land/node = SubResource("AnimationNodeAnimation_ee7au")
+states/land/position = Vector2(726, 191.53139)
+states/shadowstep/node = SubResource("AnimationNodeAnimation_rjd0h")
+states/shadowstep/position = Vector2(1008.9376, 267.53137)
+states/slide/node = SubResource("AnimationNodeAnimation_h6qqb")
+states/slide/position = Vector2(835, 267.53137)
+states/walk/node = SubResource("AnimationNodeAnimation_mqj42")
+states/walk/position = Vector2(546, 199)
+states/wallhang/node = SubResource("AnimationNodeAnimation_c7av4")
+states/wallhang/position = Vector2(531, -131.46861)
+states/walljump/node = SubResource("AnimationNodeAnimation_btcwg")
+states/walljump/position = Vector2(848, -73.46861)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_h6qqb"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_8m58u"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_oifbu"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_yk37d"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_etguq"), "walk", "dash", SubResource("AnimationNodeStateMachineTransition_ldsxk"), "dash", "walk", SubResource("AnimationNodeStateMachineTransition_awwbt"), "jump", "dash", SubResource("AnimationNodeStateMachineTransition_7codg"), "dash", "jump", SubResource("AnimationNodeStateMachineTransition_1mqe7"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_qwwot"), "jump", "walk", SubResource("AnimationNodeStateMachineTransition_uhmsy"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_787ea"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_c7av4"), "dash", "fall", SubResource("AnimationNodeStateMachineTransition_btcwg"), "fall", "walk", SubResource("AnimationNodeStateMachineTransition_ee7au"), "dash", "idle", SubResource("AnimationNodeStateMachineTransition_rjd0h"), "idle", "dash", SubResource("AnimationNodeStateMachineTransition_jqiis"), "fall", "dash", SubResource("AnimationNodeStateMachineTransition_amv1d"), "jump", "wallhang", SubResource("AnimationNodeStateMachineTransition_8anfh"), "fall", "wallhang", SubResource("AnimationNodeStateMachineTransition_fa7w4"), "walljump", "wallhang", SubResource("AnimationNodeStateMachineTransition_dsjr1"), "wallhang", "walljump", SubResource("AnimationNodeStateMachineTransition_mqj42"), "walljump", "fall", SubResource("AnimationNodeStateMachineTransition_b0xla"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_il0em"), "fall", "land", SubResource("AnimationNodeStateMachineTransition_xp1cg"), "land", "walk", SubResource("AnimationNodeStateMachineTransition_3pi0l"), "land", "dash", SubResource("AnimationNodeStateMachineTransition_r1mjt"), "walljump", "jump", SubResource("AnimationNodeStateMachineTransition_3vfb2"), "land", "slide", SubResource("AnimationNodeStateMachineTransition_71gp0"), "slide", "idle", SubResource("AnimationNodeStateMachineTransition_uuu1e"), "slide", "walk", SubResource("AnimationNodeStateMachineTransition_alc1t"), "fall", "slide", SubResource("AnimationNodeStateMachineTransition_gjpyi"), "dash", "slide", SubResource("AnimationNodeStateMachineTransition_tj635"), "slide", "shadowstep", SubResource("AnimationNodeStateMachineTransition_r462t"), "crouch", "idle", SubResource("AnimationNodeStateMachineTransition_4bwuy"), "idle", "crouch", SubResource("AnimationNodeStateMachineTransition_xjb3d"), "shadowstep", "walk", SubResource("AnimationNodeStateMachineTransition_vur2q"), "shadowstep", "idle", SubResource("AnimationNodeStateMachineTransition_0dkea")]
+graph_offset = Vector2(42.856342, -142.89197)
+
+[node name="Player" type="CharacterBody2D" unique_id=2060608443]
+script = ExtResource("1_nfgwh")
+movement_speed = 350.0
+jump_velocity = -400.0
+dash_speed = 1000.0
+dash_duration = 0.25
+normal_walljump_velocity = Vector2(100, -325)
+dash_walljump_velocity = Vector2(350, -500)
+min_slide_velocity = 350.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1927778129]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_fmfli")
+
+[node name="WallRay" type="RayCast2D" parent="." unique_id=1111651725]
+target_position = Vector2(15, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1302254999]
+texture = ExtResource("2_rjd0h")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(383, 160, 49, 48)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=276421789]
+root_node = NodePath("../Sprite2D")
+libraries/ = SubResource("AnimationLibrary_jqiis")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=13752877]
+root_node = NodePath("../Sprite2D")
+tree_root = SubResource("AnimationNodeStateMachine_b0xla")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="StateMachine" type="Node" parent="." unique_id=631398769 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_qtieq")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=692203518 node_paths=PackedStringArray("player")]
+script = ExtResource("3_6eg3q")
+player = NodePath("../..")
+
+[node name="Walk" type="Node" parent="StateMachine" unique_id=921197537 node_paths=PackedStringArray("player")]
+script = ExtResource("4_fmfli")
+player = NodePath("../..")
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=1038367620 node_paths=PackedStringArray("player")]
+script = ExtResource("5_amv1d")
+player = NodePath("../..")
+
+[node name="Dash" type="Node" parent="StateMachine" unique_id=529419912 node_paths=PackedStringArray("player")]
+script = ExtResource("7_6eg3q")
+player = NodePath("../..")
+dash_multiplier = 1.75
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=1055722048 node_paths=PackedStringArray("player")]
+script = ExtResource("8_amv1d")
+player = NodePath("../..")
+
+[node name="WallHang" type="Node" parent="StateMachine" unique_id=1049204458 node_paths=PackedStringArray("player")]
+script = ExtResource("9_787ea")
+player = NodePath("../..")
+
+[node name="WallJump" type="Node" parent="StateMachine" unique_id=547317694 node_paths=PackedStringArray("player")]
+script = ExtResource("10_c7av4")
+player = NodePath("../..")
+
+[node name="Land" type="Node" parent="StateMachine" unique_id=75946570 node_paths=PackedStringArray("player")]
+script = ExtResource("11_btcwg")
+player = NodePath("../..")
+
+[node name="ShadowStep" type="Node" parent="StateMachine" unique_id=1007689261 node_paths=PackedStringArray("player")]
+script = ExtResource("12_ee7au")
+player = NodePath("../..")
+
+[node name="Crouch" type="Node" parent="StateMachine" unique_id=1934556315 node_paths=PackedStringArray("player")]
+script = ExtResource("13_rjd0h")
+player = NodePath("../..")
+
+[node name="CustomCamera" type="Camera2D" parent="." unique_id=1589449361 node_paths=PackedStringArray("player")]
+top_level = true
+script = ExtResource("8_fmfli")
+player = NodePath("..")
+
+[node name="ControlLockTimer" type="Timer" parent="." unique_id=1196744973]
+wait_time = 0.15
+one_shot = true
+
+[connection signal="timeout" from="ControlLockTimer" to="." method="_on_control_lock_timer_timeout"]
