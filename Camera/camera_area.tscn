@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cpok72ovfo7ry"]
+
+[ext_resource type="Script" uid="uid://d0u5g1dt33jnw" path="res://camera_area.gd" id="1_bj1e0"]
+
+[node name="CameraArea" type="Node2D" unique_id=1315887869 groups=["camera_areas"]]
+script = ExtResource("1_bj1e0")
+
+[node name="JurisdictionPolygon" type="Polygon2D" parent="." unique_id=616299527]
+
+[node name="BoundaryPolygon" type="Polygon2D" parent="." unique_id=759172478]
